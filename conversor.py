@@ -13,11 +13,12 @@ def is_camel(word):
 
 # convert string to snake case
 def convert(word):
-    return re.sub("([a-z0-9])([a-z])", r"\1_\2", word).lower()
+    word = re.sub(r"([A-Z]+)([A-Z][a-z])", r'\1_\2', word)
+    return re.sub(r"([a-z\d])([A-Z])", r'\1_\2', word).replace("-", "_").lower()
 
 
 path = os.getcwd()
-filenames = [x for x in os.listdir(path) if x.endswith(".py")]
+filenames = [x for x in os.listdir(path) if x.endswith(".py") and "conversor" not in x]
 
 for filename in filenames:
     old_file = open(filename).read()
